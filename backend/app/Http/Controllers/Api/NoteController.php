@@ -8,10 +8,15 @@ use App\Models\Note;
 
 class NoteController extends Controller
 {
-    
+
     public function index() 
     {
         return Note::all();
+    }
+
+    public function show(Note $note) 
+    {
+        return response()->json($note, 200);
     }
 
     public function store(Request $request) 
