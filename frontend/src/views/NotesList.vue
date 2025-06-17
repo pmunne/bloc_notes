@@ -1,6 +1,9 @@
 <template>
     <div>
         <h2>Notes</h2>
+        <router-link to="/create">
+            <button>Create new note</button>
+        </router-link>
         <div v-if="notes.length === 0">
             <p>Ther are no notes yet.</p>
         </div>
