@@ -1,0 +1,52 @@
+@use '../base/variables' as *;
+
+
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    
+}
+
+.btn {
+    font-family: $font-family;
+    font-size: $font-size;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.2rem 0.5rem;
+    border-radius: $border-radius;
+    transition: $primary-color;   
+
+
+}
+
+.btn-primary {
+    background-color: $primary-color;
+    color: white;
+    padding: $spacing-sm $spacing-md;
+    border: none;
+    border-radius: $border-radius;
+    cursor: pointer;
+    font-family: $font-family;
+    transition: background-color 0.2s ease;
+    &:hover {
+        background-color: darken($primary-color, 10%);
+    }
+
+}
+
+
+.btn-edit {
+    color: $primary-color;
+    &:hover {
+        background-color: rgba($primary-color, 0.1);
+    } 
+}
+
+.btn-danger {
+    color: $danger-color;
+    &:hover {
+        background-color: rgba($danger-color, 0.1);
+    } 
+}

@@ -1,0 +1,82 @@
+@use '../base/variables' as *;
+
+.loading-spinner {
+    text-align: center;
+    color: $primary-color;
+    font-size: 1.1rem;
+    padding: $spacing-lg;
+    &::after {
+        content: '';
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        margin-left: $spacing-sm;
+        border: 3px solid $border-color;
+        border-top-color: $primary-color;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.skeleton {
+    background-color: white;
+    padding: $spacing-md;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow_standard;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+    animation: pulse 1.2s infinite ease-in-out;
+}
+
+.skeleton-title,
+.skeleton-text,
+.skeleton-date,
+.skeleton-buttons {
+    background-color: rgba($text-color, 0.1);
+    border-radius: 4px;
+}
+
+.skeleton-title {
+    height: 1.2rem;
+    width: 70%;
+}
+
+.skeleton-text {
+    height: 0.9rem;
+    width: 100%;
+
+    &.short {
+        width: 80%;
+    }
+}
+
+.skeleton-date {
+    height: 0.75rem;
+    width: 30%;
+    margin-top: $spacing-sm;
+}
+
+.skeleton-buttons {
+    height: 1.6rem;
+    width: 60%;
+    margin-top: auto;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.4;
+    }
+}
+
+

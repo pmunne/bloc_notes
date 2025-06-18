@@ -10,7 +10,7 @@
                 <textarea name="content" id="content" v-model="note.content" rows="6" required></textarea>
             </div>
 
-            <button type="submit">Save note</button>
+            <button type="submit" class="btn btn-primary">Save note</button>
         </form>
     </div>
 </template>
@@ -45,6 +45,3 @@ const addNote = async () => {
 
 
 </script>
-<style scoped lang="scss">
-    
-</style>

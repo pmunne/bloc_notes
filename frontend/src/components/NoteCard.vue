@@ -2,9 +2,18 @@
     <div class="note-card">
         <h3>{{ note.title }}</h3>
         <p>{{ note.content }}</p>
-        <small>{{ formatDate(note.created_at) }}</small>
-        <router-link :to="`/edit/${note.id}`">Edit</router-link>
-        <button @click="$emit('delete',note.id)">Delete</button>
+    
+        <div class="note-footer">
+            <small>{{ formatDate(note.created_at) }}</small>
+            <div class="actions">
+                <router-link :to="`/edit/${note.id}`">
+                    <button class="btn btn-edit">Edit</button>
+                </router-link>
+                <button class="btn btn-danger" @click="$emit('delete',note.id)">Delete</button>
+            </div>
+        </div>
+
+  
     </div>
 </template>
 <script setup lang="ts">
@@ -25,8 +34,5 @@ const formatDate = (dateStr: string) => {
 
 </script>
 <style scoped lang="scss">
-small {
-    color: $primary_color;
-}
 
 </style>

@@ -1,0 +1,51 @@
+@use '../base/variables' as *;
+
+.note-card {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: $spacing-md;
+    border-radius: $border-radius;
+    margin-bottom: $spacing-md;
+    box-shadow: $box-shadow_standard;
+    transition: box-shadow 0.2s ease;
+    
+    &:hover {
+        box-shadow: 0 2px 6px rgba(0,0,0, 0.1);
+    }
+
+    h3 {
+        font-size: 1.1rem;
+        margin-bottom: $spacing-md;
+        color: $primary-color;
+        font-weight: 600;
+        font-family: $font-family;
+    }
+    
+    p {
+        font-size: 1rem;
+
+        line-height: 1.5;
+        white-space: normal;
+        overflow-wrap: break-word;
+        word-break: break-word;
+
+    }
+
+    .note-footer {
+        margin-top: auto;
+            small {
+                display: block;
+                font-size: 0.875rem;
+                color: rgba($primary-color, 0.4);
+                margin-bottom: $spacing-sm;
+            }
+            .actions {
+ 
+                display: flex;
+                gap: $spacing-sm;
+            }
+
+    }
+
+}

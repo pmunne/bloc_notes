@@ -1,8 +1,11 @@
 <template>
     <div class="edit-note">
-        <form @submit.prevent="updateNote">
+        <div v-if="isLoading" class="loading-spinner">
+            <p>Wait a moment...</p>
+        </div>
+        <form v-else @submit.prevent="updateNote">
             <div class="form-group">
-                <label for="title"></label>
+                <label for="title">Title</label>
                 <input type="text" name="title" id="title" v-model="note.title" required>
             </div>
             <div class="form-group">
@@ -10,20 +13,21 @@
                 <textarea name="content" id="content" v-model="note.content" required></textarea>
             </div>
 
-            <button type="submit">Save note</button>
+            <button type="submit" class="btn btn-primary">Save note</button>
         </form>
 
     </div>
 
 </template>
 <script setup lang="ts">
-import { onMounted, reactive } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import axios from 'axios';
 import { useRouter, useRoute } from 'vue-router';
 
 const route = useRoute();
 const router = useRouter();
 const note_id = route.params.id;
+const isLoading = ref(true);
 
 const note = reactive({
     title: '',
@@ -43,6 +47,8 @@ const fetchNote = async () => {
             note.content = res.data.content;
     }catch (error) {
         console.error('Error recieveing note', error);
+    } finally {
+        isLoading.value = false
     }
 };
 onMounted(fetchNote);
@@ -67,6 +73,3 @@ const updateNote = async () => {
 
 
 </script>
-
-<style scoped lang="scss">
-</style>

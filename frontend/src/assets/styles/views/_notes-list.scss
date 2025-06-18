@@ -1,0 +1,67 @@
+@use '../base/variables' as *;
+
+.notes-list {
+    width: 100%;
+    padding: $spacing-md;
+    align-content: center;
+
+    &_header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;    
+        gap: $spacing-md;
+        flex-wrap: wrap;
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: bold;
+            color: $primary-color;
+            margin-bottom: $spacing-sm;
+        }
+
+        .notes-list_action {
+            display: flex;
+            gap: $spacing-sm;
+            align-items: center;
+            flex-wrap: wrap;
+
+            .notes-search {
+                padding: $spacing-sm $spacing-md;
+                font-size: 1rem;
+                border: 1px solid $border-color;
+                background-color: white;
+                color: $text-color;
+                font-family: $font-family;
+                transition: border-color 0.2 ease;
+
+                &:focus {
+                    outline: none; 
+                    border-color: $primary-color;
+                }
+            }
+            
+
+        }
+    }
+    .notes-list_content {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap:$spacing-md;
+ 
+    }
+
+    p {
+        color: $text-color;
+        font-size: 1.1rem;
+        margin-top: $spacing-lg;
+        text-align: center;
+    }
+    
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: $spacing-sm;
+        margin-top: $spacing-lg;
+    }
+}
