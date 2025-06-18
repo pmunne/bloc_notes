@@ -3,7 +3,7 @@
         <div v-if="isLoading" class="loading-spinner">
             <p>Wait a moment...</p>
         </div>
-        <form @submit.prevent="handleSubmit">
+        <form v-else @submit.prevent="handleSubmit">
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" name="title" id="title" v-model="note.title" required>

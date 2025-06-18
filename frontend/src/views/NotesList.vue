@@ -4,13 +4,13 @@
             <h2>Notes</h2>
             <div class="notes-list_action">
                 <input type="text" v-model="searchNote" placeholder="Search by title" class="notes-search"/>
-                <button class="btn btn-primary" @click="showForm = !showForm">
-                    {{ showForm ? 'Cancel' : 'Create new note' }}
+                <button class="btn btn-primary" @click="handleForm">
+                    {{ showForm ? 'Cancel' : 'Add new note' }}
                 </button>
             </div>
 
         </div>
-        <NoteForm v-if="showForm" @saved="noteCreated"/>
+        <NoteForm v-if="showForm || updateNoteId !== null" :id="updateNoteId ?? undefined" :key="updateNoteId ?? 'creatre'" @saved="saveNote"></NoteForm>
      
         <div v-if="isLoading" class="notes-list_content">
             <SkeletonNoteCard v-for="(i, index) in skeletons" :key="index"/>
@@ -19,7 +19,7 @@
             <p>There are no notes yet.</p>
         </div>
         <div v-else class="notes-list_content">
-            <NoteCard v-for="note in notes" :key="note.id" :note="note" @delete="deleteNote"/>
+            <NoteCard v-for="note in notes" :key="note.id" :note="note" @delete="deleteNote" @edit="updating"/>
         </div>
         <div class="pagination">
             <button class="btn btn-ant" @click="prevPage" :disabled="currentPage === 1">Previous</button>
@@ -47,9 +47,21 @@ const isLoading = ref(true);
 const showForm = ref(false);
 
 const skeletons = Array.from({ length: 6});
+const updateNoteId = ref<number | null>(null);
 
-const noteCreated = () => {
+
+const updating = (id: number) => {
     showForm.value = false;
+    updateNoteId.value = id;
+}
+const handleForm = () => {
+    updateNoteId.value = null;
+    showForm.value = !showForm.value;
+
+}
+const saveNote = () => {
+    showForm.value = false;
+    updateNoteId.value = null;
     fetchNotes();
 }
 

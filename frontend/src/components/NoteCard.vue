@@ -6,9 +6,7 @@
         <div class="note-footer">
             <small>{{ formatDate(note.created_at) }}</small>
             <div class="actions">
-                <router-link :to="`/edit/${note.id}`">
-                    <button class="btn btn-edit">Edit</button>
-                </router-link>
+                <button class="btn btn-edit" @click="$emit('edit', note.id)">Edit</button>
                 <button class="btn btn-danger" @click="$emit('delete',note.id)">Delete</button>
             </div>
         </div>
