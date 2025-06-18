@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="note-form">
         <div v-if="isLoading" class="loading-spinner">
             <p>Wait a moment...</p>
         </div>
@@ -12,7 +12,10 @@
                 <label for="content">Content</label>
                 <textarea name="content" id="content" v-model="note.content" rows="6" required></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">{{ isUpdating ? 'Update note' : 'Save note' }}</button>
+            <button type="submit" class="btn btn-primary">
+                {{ isSaving ? (isUpdating ? 'Updating...' : 'Saving...') :(isUpdating ? 'Update note' : 'Save note') }}
+                <span v-if="isSaving" class="loading-spinner inline"/>
+            </button>
         </form>
 
     </div>
@@ -23,6 +26,7 @@ import axios from 'axios';
 import { computed, onMounted, reactive, ref } from 'vue';
 
 const isLoading = ref(false);
+const isSaving = ref(false);
 const props = defineProps<{
     id?: number;
 }>();
@@ -62,6 +66,7 @@ if(props.id !== undefined) {
 
 //Handle submit depends on isUpdating.
 const handleSubmit = async () => {
+    isSaving.value = true;
     try {
         if(isUpdating.value) {
             //Update the note from   
@@ -84,6 +89,8 @@ const handleSubmit = async () => {
         emit('saved');
     }catch (error) {
         console.error('Error saving note', error);
+    } finally {
+        isSaving.value = false;
     }
 }
 

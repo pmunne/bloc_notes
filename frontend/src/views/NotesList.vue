@@ -113,6 +113,7 @@ const prevPage = () => {
 
 //Deletes a note by its ID and refresh.
 const deleteNote = async (id: number) => {
+    isLoading.value = true;
     const operation = confirm('Are you sure that you want to delete this note?');
     if(!operation) return;
     try {
