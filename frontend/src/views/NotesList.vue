@@ -1,11 +1,12 @@
 <template>
     <div>
         <h2>Notes</h2>
+        <input type="text" v-model="searchNote" placeholder="Search by title" class="search-note">
         <router-link to="/create">
             <button>Create new note</button>
         </router-link>
         <div v-if="notes.length === 0">
-            <p>Ther are no notes yet.</p>
+            <p>There are no notes yet.</p>
         </div>
         <div v-else class="note-list">
             <NoteCard v-for="note in notes" :key="note.id" :note="note" @delete="deleteNote"/>
@@ -14,7 +15,7 @@
             <button @click="prevPage" :disabled="currentPage === 1">Previous</button>
             <span>{{ currentPage }}</span>
             <button @click="nextPage" :disabled="currentPage === lastPage">Next</button>
-        </div>    
+        </div>
     </div>
 
 </template>
@@ -22,11 +23,23 @@
 
 import { onMounted, ref, watch } from 'vue';
 import axios from 'axios';
+import debounce from 'lodash.debounce';
 import NoteCard from '@/components/NoteCard.vue';
 
 const notes = ref([]);
 const currentPage = ref(1);
 const lastPage = ref(1);
+const searchNote = ref('');
+const debounceSearch = ref('')
+
+// Debounced call: fetchNotes() is triggered 400ms after the last keystroke
+const updateSearch = debounce((val: string) => {
+    debounceSearch.value = val;
+    currentPage.value = 1;
+    fetchNotes();
+}, 400)
+watch(searchNote, updateSearch);
+
 
 //Fetch all notes.
 const fetchNotes = async () => {
@@ -36,10 +49,13 @@ const fetchNotes = async () => {
                 headers: {
                     Authentication: 'Doonamis',
                 },
+                params: {
+                    page: currentPage.value,
+                    search: debounceSearch.value || undefined,
+                }
             });
        
             notes.value = res.data.data;
-            console.log(notes.value);
             lastPage.value = res.data.last_page;
 
         } catch (err) {
@@ -48,6 +64,7 @@ const fetchNotes = async () => {
     };
 onMounted(fetchNotes);
 watch(currentPage, fetchNotes);
+
 
 const nextPage = () => {
     if(currentPage.value < lastPage.value) currentPage.value++;
