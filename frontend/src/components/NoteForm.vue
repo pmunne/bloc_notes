@@ -1,0 +1,86 @@
+<template>
+    <div>
+        <div v-if="isLoading" class="loading-spinner">
+            <p>Wait a moment...</p>
+        </div>
+        <form @submit.prevent="handleSubmit">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" v-model="note.title" required>
+            </div>
+            <div class="form-group">
+                <label for="content">Content</label>
+                <textarea name="content" id="content" v-model="note.content" rows="6" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">{{ isUpdating ? 'Update note' : 'Save note' }}</button>
+        </form>
+
+    </div>
+
+</template>
+<script setup lang="ts">
+import axios from 'axios';
+import { computed, onMounted, reactive, ref } from 'vue';
+
+const isLoading = ref(true);
+const props = defineProps<{
+    id?: number;
+}>();
+
+const emit = defineEmits(['saved']);
+
+const isUpdating = computed(() => props.id !== undefined);
+const note = reactive ({
+    title: '',
+    content: ''
+})
+
+
+//Fetch a note from the DB
+const fetchNote = async () => {
+    try {
+        const res = await axios
+            .get(`http://localhost:8000/api/notes/${props.id}`, {
+                headers: {
+                    Authentication: 'Doonamis',
+                },
+            });
+            note.title = res.data.title;
+            note.content = res.data.content;
+    }catch (error) {
+        console.error('Error fetching note', error);
+    } finally {
+        isLoading.value = false
+    }
+};
+onMounted(fetchNote);
+
+//Handle submit depends on isUpdating.
+const handleSubmit = async () => {
+    try {
+        if(isUpdating.value) {
+            //Update the note from   
+            await axios
+                .put(`http://localhost:8000/api/notes/${props.id}`, note, {
+                headers: {
+                    Authentication: 'Doonamis', 
+                },
+            });
+        }else {
+            //Insert a new note
+            await axios
+                .post('http://localhost:8000/api/notes', note, {
+                    headers: {
+                        Authentication: 'Doonamis', 
+                    },
+                });
+
+        }
+        emit('saved');
+    }catch (error) {
+        console.error('Error saving note', error);
+    }
+}
+
+
+</script>

@@ -33,6 +33,3 @@ const formatDate = (dateStr: string) => {
 }
 
 </script>
-<style scoped lang="scss">
-
-</style>
