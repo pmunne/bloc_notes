@@ -22,10 +22,11 @@
 import axios from 'axios';
 import { computed, onMounted, reactive, ref } from 'vue';
 
-const isLoading = ref(true);
+const isLoading = ref(false);
 const props = defineProps<{
     id?: number;
 }>();
+
 
 const emit = defineEmits(['saved']);
 
@@ -53,7 +54,11 @@ const fetchNote = async () => {
         isLoading.value = false
     }
 };
-onMounted(fetchNote);
+if(props.id !== undefined) {
+    isLoading.value = true;
+    onMounted(fetchNote);
+}
+
 
 //Handle submit depends on isUpdating.
 const handleSubmit = async () => {
@@ -81,6 +86,7 @@ const handleSubmit = async () => {
         console.error('Error saving note', error);
     }
 }
+
 
 
 </script>

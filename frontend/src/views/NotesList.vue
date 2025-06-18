@@ -4,12 +4,13 @@
             <h2>Notes</h2>
             <div class="notes-list_action">
                 <input type="text" v-model="searchNote" placeholder="Search by title" class="notes-search"/>
-                <router-link to="/create">
-                    <button class="btn btn-primary">Create new note</button>
-                </router-link>
+                <button class="btn btn-primary" @click="showForm = !showForm">
+                    {{ showForm ? 'Cancel' : 'Create new note' }}
+                </button>
             </div>
 
         </div>
+        <NoteForm v-if="showForm" @saved="noteCreated"/>
      
         <div v-if="isLoading" class="notes-list_content">
             <SkeletonNoteCard v-for="(i, index) in skeletons" :key="index"/>
@@ -35,6 +36,7 @@ import axios from 'axios';
 import debounce from 'lodash.debounce';
 import NoteCard from '@/components/NoteCard.vue';
 import SkeletonNoteCard from '@/components/SkeletonNoteCard.vue';
+import NoteForm from '@/components/NoteForm.vue';
 
 const notes = ref([]);
 const currentPage = ref(1);
@@ -42,8 +44,14 @@ const lastPage = ref(1);
 const searchNote = ref('');
 const debounceSearch = ref('')
 const isLoading = ref(true);
+const showForm = ref(false);
 
 const skeletons = Array.from({ length: 6});
+
+const noteCreated = () => {
+    showForm.value = false;
+    fetchNotes();
+}
 
 // Debounced call: fetchNotes() is triggered 400ms after the last keystroke
 const updateSearch = debounce((val: string) => {
