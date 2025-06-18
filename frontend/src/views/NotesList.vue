@@ -8,7 +8,7 @@
             <p>Ther are no notes yet.</p>
         </div>
         <div v-else class="note-list">
-            <NoteCard v-for="note in notes" :key="note.id" :note="note"/>
+            <NoteCard v-for="note in notes" :key="note.id" :note="note" @delete="deleteNote"/>
         </div>
         <div class="pagination">
             <button @click="prevPage" :disabled="currentPage === 1">Previous</button>
@@ -28,6 +28,7 @@ const notes = ref([]);
 const currentPage = ref(1);
 const lastPage = ref(1);
 
+//Fetch all notes.
 const fetchNotes = async () => {
     try {
         const res = await axios
@@ -56,5 +57,22 @@ const prevPage = () => {
     if (currentPage.value > 1) currentPage.value--;
 };
 
+//Deletes a note by its ID and refresh.
+const deleteNote = async (id: number) => {
+    const operation = confirm('Are you sure that you want to delete this note?');
+    if(!operation) return;
+    try {
+        await axios
+            .delete(`http://localhost:8000/api/notes/${id}`, {
+                headers: {
+                    Authentication: 'Doonamis',
+                },
+            });
+
+            await fetchNotes();
+    } catch (error) {
+        console.error('Error deleting note', error);
+    }
+}
 
 </script>

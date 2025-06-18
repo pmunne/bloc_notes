@@ -3,6 +3,8 @@
         <h3>{{ note.title }}</h3>
         <p>{{ note.content }}</p>
         <small>{{ formatDate(note.created_at) }}</small>
+        <router-link :to="`/edit/${note.id}`">Edit</router-link>
+        <button @click="$emit('delete',note.id)">Delete</button>
     </div>
 </template>
 <script setup lang="ts">
@@ -16,6 +18,7 @@ defineProps<{
     }
 }>();
 
+//Converts the date into a (dd/mm/yyyy) format
 const formatDate = (dateStr: string) => {
     return new Date(dateStr).toLocaleDateString();
 }

@@ -26,6 +26,7 @@ const note = reactive({
     content: ''
 })
 
+//Insert the note into the DB. 
 const addNote = async () => {
     try {
         await axios
@@ -40,6 +41,8 @@ const addNote = async () => {
         console.error('Error creating the note', error);
     }
 };
+
+
 
 </script>
 <style scoped lang="scss">
