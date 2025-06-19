@@ -1,5 +1,6 @@
 <template>
     <div class="note-form">
+        <!-- Shows a spinner if is loading -->
         <div v-if="isLoading" class="loading-spinner">
             <p>Wait a moment...</p>
         </div>
@@ -35,7 +36,10 @@ const props = defineProps<{
 
 const emit = defineEmits(['saved','cancel']);
 
+// Detect is there is an Id, if it is, is updating
 const isUpdating = computed(() => props.id !== undefined);
+
+// Reactive state of the note
 const note = reactive ({
     title: '',
     content: ''
@@ -65,7 +69,7 @@ if(props.id !== undefined) {
 }
 
 
-//Handle submit depends on isUpdating.
+//Handle submit depends on isUpdating or not.
 const handleSubmit = async () => {
     isSaving.value = true;
     try {
