@@ -1,5 +1,6 @@
 @use '../base/variables' as *;
 
+// Note card 
 .note-card {
     display: flex;
     flex-direction: column;
@@ -10,21 +11,25 @@
     box-shadow: $box-shadow_standard;
     transition: box-shadow 0.2s ease;
     
+    // Puts a shadow when the cursor goes through
     &:hover {
         box-shadow: 0 2px 6px rgba(0,0,0, 0.1);
     }
 
+    // Style whene the card is deleting
     .deleteNote {
         display: flex;
         justify-content: center;
         align-items: center;
     }
 
+    // Style when the card is updating
     &.update {
         border: 2px solid $primary-color;
         background-color: $secondary-color;
         position: relative;
 
+        // Visual label on the top right. "Updating"
         &:after {
             content: 'Updating';
             position: absolute;
@@ -38,6 +43,7 @@
         }
     }
 
+    // Note title
     h3 {
         font-size: 1.1rem;
         margin-bottom: $spacing-md;
@@ -46,6 +52,7 @@
         font-family: $font-family;
     }
     
+    // Note content
     p {
         font-size: 1rem;
 
@@ -56,6 +63,7 @@
 
     }
 
+    // Note footer: Contains the date and the buttons
     .note-footer {
         margin-top: auto;
             small {

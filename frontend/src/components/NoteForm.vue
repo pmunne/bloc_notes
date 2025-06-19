@@ -17,7 +17,7 @@
                 {{ isSaving ? (isUpdating ? 'Updating...' : 'Saving...') :(isUpdating ? 'Update note' : 'Save note') }}
                 <span v-if="isSaving" class="loading-spinner inline"/>
             </button>
-            <button v-if="isUpdating" type="button" class="btn btn-secondary" @click="$emit('cancel')" >Cancel edit</button>
+            <button v-if="isUpdating" type="button" class="btn" @click="$emit('cancel')" >Cancel edit</button>
         </form>
 
     </div>

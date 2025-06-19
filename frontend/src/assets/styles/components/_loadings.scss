@@ -1,10 +1,13 @@
 @use '../base/variables' as *;
 
+// Loading spinner. Loads in a 360 circle.
 .loading-spinner {
     text-align: center;
     color: $primary-color;
     font-size: 1.1rem;
     padding: $spacing-lg;
+    
+    // Animation
     &::after {
         content: '';
         display: inline-block;
@@ -17,6 +20,7 @@
         animation: spin 1s linear infinite;
     }
 
+    // This is only used for buttons, to put the spinner inside.
     &.inline {
         text-align: inherit;
         font-size: 0;
@@ -32,12 +36,14 @@
     } 
 }
 
+// Rotates indefinitely.
 @keyframes spin {
   to {
     transform: rotate(360deg);
   }
 }
 
+// Skeleton structure for loading notes.
 .skeleton {
     background-color: white;
     padding: $spacing-md;
@@ -49,6 +55,7 @@
     animation: pulse 1.2s infinite ease-in-out;
 }
 
+// Visual elements from the notes.
 .skeleton-title,
 .skeleton-text,
 .skeleton-date,
@@ -57,11 +64,13 @@
     border-radius: 4px;
 }
 
+// Title
 .skeleton-title {
     height: 1.2rem;
     width: 70%;
 }
 
+// Content
 .skeleton-text {
     height: 0.9rem;
     width: 100%;
@@ -71,18 +80,22 @@
     }
 }
 
+// Create_at
 .skeleton-date {
     height: 0.75rem;
     width: 30%;
     margin-top: $spacing-sm;
 }
 
+// Buttons
 .skeleton-buttons {
     height: 1.6rem;
     width: 60%;
     margin-top: auto;
 }
 
+
+// Heartbeat animation
 @keyframes pulse {
     0%, 100% {
         opacity: 1;

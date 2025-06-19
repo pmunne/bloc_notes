@@ -8,6 +8,8 @@ button:disabled {
     
 }
 
+
+//Base style for all buttons
 .btn {
     font-family: $font-family;
     font-size: $font-size;
@@ -16,11 +18,10 @@ button:disabled {
     cursor: pointer;
     padding: 0.2rem 0.5rem;
     border-radius: $border-radius;
-    transition: $primary-color;   
-
 
 }
 
+// Primary button
 .btn-primary {
     background-color: $primary-color;
     color: white;
@@ -37,7 +38,7 @@ button:disabled {
 
 }
 
-
+// Edit button
 .btn-edit {
     color: $primary-color;
     &:hover {
@@ -45,6 +46,7 @@ button:disabled {
     } 
 }
 
+// Delete button
 .btn-danger {
     color: $danger-color;
     &:hover {

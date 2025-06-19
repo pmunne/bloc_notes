@@ -1,25 +1,30 @@
 @use '../base/variables' as *;
 
+// Transition in and out for the forms
 .slide-fade-enter-active,
 .slide-fade-leave-active {
     transition: all 0.3s ease;
 }
 
+// Inicial state on in
 .slide-fade-enter-from {
     opacity: 0;
     transform: translateY(-10px);
 }
 
+// Final state on in
 .slide-fade-enter-to {
     opacity: 1;
     transform: translateY(0)
 }
 
+// Inicial state on out
 .slide-fade-leave-from {
     opacity: 1;
     transform: translateY(0)
 }
 
+// Final state on out
 .slide-fade-leave-to {
     opacity: 0;
     transform: translateY(-10px)

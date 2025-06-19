@@ -1,10 +1,12 @@
 @use '../base/variables' as *;
 
+// Primary container for note-list.
 .notes-list {
     width: 100%;
     padding: $spacing-md;
     align-content: center;
 
+    // Header for note list, contains: title and actions.
     &_header {
         display: flex;
         justify-content: space-between;
@@ -19,6 +21,7 @@
             margin-bottom: $spacing-sm;
         }
 
+        // Actions: Contains searcher and "Add new note" button.
         .notes-list_action {
             display: flex;
             gap: $spacing-sm;
@@ -43,6 +46,8 @@
 
         }
     }
+
+    // Container grid responsives.
     .notes-list_content {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -50,6 +55,7 @@
  
     }
 
+    // Style where there are no notes.
     p {
         color: $text-color;
         font-size: 1.1rem;
@@ -57,6 +63,7 @@
         text-align: center;
     }
     
+    // Pagination styles.
     .pagination {
         display: flex;
         justify-content: center;

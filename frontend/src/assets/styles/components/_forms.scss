@@ -1,5 +1,6 @@
 @use '../base/variables' as *;
 
+// Form-group controls the inputs and labes. 
 .form-group {
     display: flex;
     flex-direction: column;
@@ -41,8 +42,4 @@
     }
 
 
-}
-
-.note-form {
-    margin-bottom: $spacing-lg;
 }
