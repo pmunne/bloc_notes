@@ -10,7 +10,10 @@
             </div>
 
         </div>
-        <NoteForm v-if="showForm || updateNoteId !== null" :id="updateNoteId ?? undefined" :key="updateNoteId ?? 'creatre'" @saved="saveNote"></NoteForm>
+        <transition name="slide-fade" mode="out-in">
+            <NoteForm v-if="showForm || updateNoteId !== null" :id="updateNoteId ?? undefined" :key="updateNoteId ?? 'creatre'" @saved="saveNote"/>
+        </transition>
+
      
         <div v-if="isLoading" class="notes-list_content">
             <SkeletonNoteCard v-for="(i, index) in skeletons" :key="index"/>
