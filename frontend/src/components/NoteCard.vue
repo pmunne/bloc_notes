@@ -1,6 +1,7 @@
 <template>
     <div class="note-card" :class="{update: isUpdating}">
         <div v-if="isDeleting" class="deleteNote">
+            <!-- Shows a spinner if is loading -->
             <div class="loading-spinner">Deleting...</div>
         </div>
         <div v-else>
