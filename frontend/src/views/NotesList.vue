@@ -14,7 +14,7 @@
             <NoteForm v-if="showForm || updateNoteId !== null" :id="updateNoteId ?? undefined" :key="updateNoteId ?? 'creatre'" @saved="saveNote" @cancel="cancelUpdate"/>
         </transition>
 
-     
+        <!-- Skeleton cards for loading -->
         <div v-if="isLoading" class="notes-list_content">
             <SkeletonNoteCard v-for="(i, index) in skeletons" :key="index"/>
         </div>
@@ -22,7 +22,7 @@
             <p>There are no notes yet.</p>
         </div>
         <div v-else class="notes-list_content">
-            <NoteCard v-for="note in notes" :key="note.id" :note="note" :isDeleteing="deleteNoteId === note.id" :isUpdateing="updateNoteId === note.id" @delete="deleteNote" @edit="updating"/>
+            <NoteCard v-for="note in notes" :key="note.id" :note="note" :isDeleting="deleteNoteId === note.id" :isUpdating="updateNoteId === note.id" @delete="deleteNote" @edit="updating"/>
         </div>
         <div class="pagination">
             <button class="btn btn-ant" @click="prevPage" :disabled="currentPage === 1">Previous</button>
@@ -82,7 +82,7 @@ const updateSearch = debounce((val: string) => {
 watch(searchNote, updateSearch);
 
 
-//Fetch all notes.
+//Fetch all notes with pagination and search.
 const fetchNotes = async () => {
     isLoading.value = true;
     try {
@@ -107,6 +107,7 @@ const fetchNotes = async () => {
         }
     };
 onMounted(fetchNotes);
+//Fetch all notes whene a page change
 watch(currentPage, fetchNotes);
 
 

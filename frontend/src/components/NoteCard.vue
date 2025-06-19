@@ -1,6 +1,6 @@
 <template>
-    <div class="note-card" :class="{update: isUpdateing}">
-        <div v-if="isDeleteing" class="deleteNote">
+    <div class="note-card" :class="{update: isUpdating}">
+        <div v-if="isDeleting" class="deleteNote">
             <div class="loading-spinner">Deleting...</div>
         </div>
         <div v-else>
@@ -26,8 +26,8 @@ defineProps<{
         created_at: string;
 
     },
-    isDeleteing?: boolean,
-    isUpdateing?: boolean
+    isDeleting?: boolean,
+    isUpdating?: boolean
 }>();
 
 
