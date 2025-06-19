@@ -74,7 +74,7 @@ const handleSubmit = async () => {
     isSaving.value = true;
     try {
         if(isUpdating.value) {
-            //Update the note from   
+            //Update the note form   
             await axios
                 .put(`http://localhost:8000/api/notes/${props.id}`, note, {
                 headers: {
