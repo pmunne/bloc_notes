@@ -11,7 +11,7 @@
 
         </div>
         <transition name="slide-fade" mode="out-in">
-            <NoteForm v-if="showForm || updateNoteId !== null" :id="updateNoteId ?? undefined" :key="updateNoteId ?? 'creatre'" @saved="saveNote"/>
+            <NoteForm v-if="showForm || updateNoteId !== null" :id="updateNoteId ?? undefined" :key="updateNoteId ?? 'creatre'" @saved="saveNote" @cancel="cancelUpdate"/>
         </transition>
 
      
@@ -22,7 +22,7 @@
             <p>There are no notes yet.</p>
         </div>
         <div v-else class="notes-list_content">
-            <NoteCard v-for="note in notes" :key="note.id" :note="note" @delete="deleteNote" @edit="updating"/>
+            <NoteCard v-for="note in notes" :key="note.id" :note="note" :isDeleteing="deleteNoteId === note.id" :isUpdateing="updateNoteId === note.id" @delete="deleteNote" @edit="updating"/>
         </div>
         <div class="pagination">
             <button class="btn btn-ant" @click="prevPage" :disabled="currentPage === 1">Previous</button>
@@ -51,7 +51,7 @@ const showForm = ref(false);
 
 const skeletons = Array.from({ length: 6});
 const updateNoteId = ref<number | null>(null);
-
+const deleteNoteId = ref<number | null>(null);
 
 const updating = (id: number) => {
     showForm.value = false;
@@ -66,6 +66,10 @@ const saveNote = () => {
     showForm.value = false;
     updateNoteId.value = null;
     fetchNotes();
+}
+
+const cancelUpdate = () => {
+    updateNoteId.value = null;
 }
 
 // Debounced call: fetchNotes() is triggered 400ms after the last keystroke
@@ -116,9 +120,11 @@ const prevPage = () => {
 
 //Deletes a note by its ID and refresh.
 const deleteNote = async (id: number) => {
-    isLoading.value = true;
+
     const operation = confirm('Are you sure that you want to delete this note?');
     if(!operation) return;
+
+    deleteNoteId.value = id;
     try {
         await axios
             .delete(`http://localhost:8000/api/notes/${id}`, {
@@ -130,6 +136,8 @@ const deleteNote = async (id: number) => {
             await fetchNotes();
     } catch (error) {
         console.error('Error deleting note', error);
+    } finally {
+        deleteNoteId.value = null;
     }
 }
 

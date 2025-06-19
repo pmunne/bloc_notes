@@ -26,6 +26,7 @@ button:disabled {
     color: white;
     padding: $spacing-sm $spacing-md;
     border: none;
+    margin: $spacing-sm;
     border-radius: $border-radius;
     cursor: pointer;
     font-family: $font-family;
