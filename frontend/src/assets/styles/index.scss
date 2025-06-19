@@ -1,7 +1,5 @@
 @forward  './base/variables';
 @forward './base/reset.scss';
-@forward  './base/mixins';
-@forward './base/typography';
 
 @forward  './components/forms';
 @forward  './components/buttons';
@@ -11,7 +9,5 @@
 @forward  './layout/layout';
 
 @forward './views/notes-list';
-@forward './views/create-note';
-@forward './views/edit-note';
 
 @forward './animations/transitions';
